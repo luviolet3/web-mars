@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARS: Mips Assembler and Runtime Simulator</title>
+    <link href="images/mars.ico" rel="icon" type="image/x-icon">
+    <link href="reset.css" rel="stylesheet" type="text/css" media="all">
+    <link href="style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="menu.css" rel="stylesheet" type="text/css" media="all">
+    <!-- <link href="resize.css" rel="stylesheet" type="text/css" media="all"> -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
+  </head>
+  <body>
+    <div class="menubar" id="menubar">
+      <div class="menu" id="file-menu">
+        <a class="menu-btn">File</a>
+        <div id="file-content" class="menu-content">
+          <a title="Create a new file for editing" class="menu-item">
+            <img src="images/New16.png" class="menu-icon" alt="">
+            <span class="menu-text">New</span>
+            <span class="menu-shortcut">Alt-N</span>
+          </a>
+          <a title="Open a file for editing" class="menu-item">
+            <img src="images/Open16.png" class="menu-icon" alt="">
+            <span class="menu-text">Open ...</span>
+            <span class="menu-shortcut">Alt-O</span>
+          </a>
+          <a title="Close the current file" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Close</span>
+            <span class="menu-shortcut">Alt-C</span>
+          </a>
+          <a title="Close all open files" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Close All</span>
+            <span class="menu-shortcut">Alt-L</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="Save the current file" class="menu-item">
+            <img src="images/Save16.png" class="menu-icon" alt="">
+            <span class="menu-text">Save</span>
+            <span class="menu-shortcut">Alt-S</span>
+          </a>
+          <a title="Save current file with different name" class="menu-item">
+            <img src="images/SaveAs16.png" class="menu-icon" alt="">
+            <span class="menu-text">Save as ...</span>
+            <span class="menu-shortcut"></span>
+          </a>
+          <a title="Save all open files" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Save All</span>
+            <span class="menu-shortcut"></span>
+          </a>
+          <a title="Dump machine code or data in an available format" class="menu-item">
+            <img src="images/Dump16.png" class="menu-icon" alt="">
+            <span class="menu-text">Dump Memory ...</span>
+            <span class="menu-shortcut">Alt-D</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="Print current file" class="menu-item">
+            <img src="images/Print16.gif" class="menu-icon" alt="">
+            <span class="menu-text">Print</span>
+            <span class="menu-shortcut"></span>
+          </a>
+          <!-- not useful as this is the same as closing the tab-->
+          <!-- <div class="menu-seperator"></div>
+          <a title="Exit Mars" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Exit</span>
+            <span class="menu-shortcut"></span>
+          </a> -->
+        </div>
+      </div>
+      <div class="menu" id="edit-menu">
+        <a class="menu-btn">Edit</a>
+        <div id="edit-content" class="menu-content">
+          <a title="Undo last edit" class="menu-item">
+            <img src="images/Undo16.png" class="menu-icon" alt="">
+            <span class="menu-text">Undo</span>
+            <span class="menu-shortcut">Crtl-Z</span>
+          </a>
+          <a title="Redo last edit" class="menu-item">
+            <img src="images/Redo16.png" class="menu-icon" alt="">
+            <span class="menu-text">Redo</span>
+            <span class="menu-shortcut">Ctrl-Y</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="Cut" class="menu-item">
+            <img src="images/Cut16.gif" class="menu-icon" alt="">
+            <span class="menu-text">Cut</span>
+            <span class="menu-shortcut">Ctrl-X</span>
+          </a>
+          <a title="Copy" class="menu-item">
+            <img src="images/Copy16.png" class="menu-icon" alt="">
+            <span class="menu-text">Copy</span>
+            <span class="menu-shortcut">Ctrl-C</span>
+          </a>
+          <a title="Paste" class="menu-item">
+            <img src="images/Paste16.png" class="menu-icon" alt="">
+            <span class="menu-text">Paste</span>
+            <span class="menu-shortcut">Ctrl-V</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="Find/Replace" class="menu-item">
+            <img src="images/Find16.png" class="menu-icon" alt="">
+            <span class="menu-text">Find/Replace</span>
+            <span class="menu-shortcut">Ctrl-F</span>
+          </a>
+          <a title="Select All" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Select All</span>
+            <span class="menu-shortcut">Ctrl-A</span>
+          </a>
+        </div>
+      </div>
+      <div class="menu" id="run-menu">
+        <a class="menu-btn">Run</a>
+        <div id="run-content" class="menu-content">
+          <a title="Assemble the current file and clear breakpoints" class="menu-item">
+            <img src="images/Assemble16.png" class="menu-icon" alt="">
+            <span class="menu-text">Assemble</span>
+            <span class="menu-shortcut">Alt-3</span>
+          </a>
+          <a title="Run the current program" class="menu-item">
+            <img src="images/Play16.png" class="menu-icon" alt="">
+            <span class="menu-text">Go</span>
+            <span class="menu-shortcut">Alt-5</span>
+          </a>
+          <a title="Run one step at a time" class="menu-item">
+            <img src="images/StepForward16.png" class="menu-icon" alt="">
+            <span class="menu-text">Step</span>
+            <span class="menu-shortcut">Alt-7</span>
+          </a>
+          <a title="Undo the last step" class="menu-item">
+            <img src="images/StepBack16.png" class="menu-icon" alt="">
+            <span class="menu-text">Backstep</span>
+            <span class="menu-shortcut">Alt-8</span>
+          </a>
+          <a title="Pause the currently running program" class="menu-item">
+            <img src="images/Pause16.png" class="menu-icon" alt="">
+            <span class="menu-text">Pause</span>
+            <span class="menu-shortcut">Alt-9</span>
+          </a>
+          <a title="Stop the currently running program" class="menu-item">
+            <img src="images/Stop16.png" class="menu-icon" alt="">
+            <span class="menu-text">Stop</span>
+            <span class="menu-shortcut">Alt-11</span>
+          </a>
+          <a title="Reset MIPS memory and registers" class="menu-item">
+            <img src="images/Reset16.png" class="menu-icon" alt="">
+            <span class="menu-text">Reset</span>
+            <span class="menu-shortcut">Alt-12</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="Clears all execution breakpoints set since the last assemble" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Clear all breakpoints</span>
+            <span class="menu-shortcut">Alt-K</span>
+          </a>
+          <a title="Disable/enable all breakpoints without clearing (can also click Bkpt column header)" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Toggle all breakpoints</span>
+            <span class="menu-shortcut">Alt-T</span>
+          </a>
+        </div>
+      </div>
+      <div class="menu" id="settings-menu">
+        <a class="menu-btn">Settings</a>
+        <div id="settings-content" class="menu-content">
+          <a title="Toggle visibility of Labels window (symbol table) in the Execute tab" class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="label-window">
+            <span class="menu-text">Show Labels Window (symbol table)</span>
+          </a>
+          <a title="If set, program arguments for MIPS program can be entered in border of Text Segment window." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="program-arguments">
+            <span class="menu-text">Program arguments provided to MIPS program</span>
+          </a>
+          <a title="If set, use popup dialog for input syscalls (5,6,7,8,12) instead of cursor in Run I/O window" class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="input-popup">
+            <span class="menu-text">Popup dialog for input syscalls (5,6,7,8,12)</span>
+          </a>
+          <a title="Toggle between hexadecimal and decimal display of memory addresses" class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="hexadecimal-addresses">
+            <span class="menu-text">Addresses displayed in hexadecimal</span>
+          </a>
+          <a title="Toggle between hexadecimal and decimal display of memory/register values" class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="hexadecimal-values">
+            <span class="menu-text">Values displayed in hexadecimal</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="If set, a file will be automatically assembled as soon as it is opened. File Open dialog will show most recently opened file." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="assemble-open">
+            <span class="menu-text">Assemble file upon opening</span>
+          </a>
+          <a title="If set, all files in current directory will be assembled when Assemble operation is selected." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="assemble-directory">
+            <span class="menu-text">Assemble all files in directory</span>
+          </a>
+          <a title="If set, assembler warnings will be interpreted as errors and prevent successful assembly." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="warning-errors">
+            <span class="menu-text">Assembler warnings are considered errors</span>
+          </a>
+          <a title="If set, assembler will initialize Program Counter to text address globally labeled 'main', if defined." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="global-main">
+            <span class="menu-text">Initialize Program Counter to global 'main' if defined</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="If set, MIPS extended (pseudo) instructions are formats are permitted." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="extended-instructions">
+            <span class="menu-text">Permit extended (pseudo) instructions and formats</span>
+          </a>
+          <a title="If set, delayed branching will occur during MIPS execution." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="delay-branching">
+            <span class="menu-text">Delayed branching</span>
+          </a>
+          <a title="If set, the MIPS program can write and branch to both text and data segments." class="menu-item toggle-setting">
+            <input type="checkbox" class="menu-icon" id="self-modifying">
+            <span class="menu-text">Self-modifying code</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="View and modify text editor settings." class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Editor...</span>
+          </a>
+          <a title="View and modify Execute Tab highlighting colors" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Highlighting...</span>
+          </a>
+          <a title="If set, the specified exception handler file will be included in all Assemble operations." class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Exception Handler...</span>
+          </a>
+          <a title="View and modify memory segment base addresses for simulated MIPS." class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">Memory Configuration...</span>
+          </a>
+        </div>
+      </div>
+      <div class="menu" id="tools-menu">
+        <a class="menu-btn">Tools</a>
+        <div id="tools-content" class="menu-content">
+          <a class="menu-item">
+            <span class="menu-text">BHT Simulator</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Bitmap Display</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Data Cache Simulator</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Digital Lab Sim</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Floating Point Representation</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Instruction Counter</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Instruction Statistics</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Introduction to Tools</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Keyboard and Display MMIO Simulator</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Mars Bot</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Memory Reference Visualizatoin</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">MIPS X-Ray</span>
+          </a>
+          <!-- <a class="menu-item">
+            <span class="menu-text">Scavenger Hunt</span>
+          </a>
+          <a class="menu-item">
+            <span class="menu-text">Screen Magnifier</span>
+          </a> -->
+        </div>
+      </div>
+      <div class="menu" id="help-menu">
+        <a class="menu-btn">Help</a>
+        <div id="help-content" class="menu-content">
+          <a title="" class="menu-item">
+            <img src="images/Help16.png" class="menu-icon" alt="">
+            <span class="menu-text">Help</span>
+            <span class="menu-shortcut">Alt-1</span>
+          </a>
+          <div class="menu-seperator"></div>
+          <a title="Information about Mars" class="menu-item">
+            <img src="images/Null16.png" class="menu-icon" alt="">
+            <span class="menu-text">About ...</span>
+            <span class="menu-shortcut"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <script src="menu.js"></script> 
+    <script src="settings.js"></script>
+    <!-- <script src="resize.js"></script> -->
+
+  </body>
+</html>

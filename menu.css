@@ -1,0 +1,101 @@
+*:focus {
+  border: 1px solid violet !important;
+}
+
+.menubar {
+  z-index: 1000;
+  /* display: inline-block; */
+  display: flex;
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  padding: 2px;
+  background-color: var(--background-color);
+
+  --shortcut-text-color: #6382BF;
+  --highlight-color: #A3B8CC;
+}
+
+.menu {
+  position: relative;
+  display: inline-block;
+  row-gap: 10px;
+}
+
+.menu-btn {
+  background-color: var(--background-color);
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 2px 4px;
+  user-select: none;
+}
+
+.menu-content {
+  display: none;
+  position: absolute;
+  background-color: var(--background-color);
+  width: max-content;
+  border: 1px solid var(--border-color);
+  margin-top: 3px;
+  box-sizing: border-box;
+  font-size: 0.75em;
+  text-align: left;
+  z-index: 1000000;
+}
+
+.menu-item.active {
+  background-color: var(--highlight-color);
+  --shortcut-text-color: var(--text-color);
+}
+
+.menubar.active .menu.active .menu-content {
+  display: block;
+}
+
+.menubar.active .menu.active .menu-btn {
+  background-color: var(--highlight-color);
+}
+
+.menu-item {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  color: var(--text-color);
+  padding: 0;
+  border: 0;
+}
+
+.menu-icon,
+.menu-text,
+.menu-shortcut {
+  margin: 2px;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.menu-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  outline: none;
+  pointer-events:none;
+}
+
+.menu-shortcut {
+  vertical-align: text-top;
+  margin-left: auto;
+  color: var(--shortcut-text-color);
+  text-align: right;
+  font-size: 0.9em;
+  text-align: right;
+  /* min-width: max-content;
+  width: fit-content; */
+}
+
+.menu-seperator {
+  height: 0px;
+  border-top: 1px solid var(--border-color);
+  margin: 0.25em 0;
+}

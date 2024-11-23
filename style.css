@@ -1,0 +1,69 @@
+/* CSS is how you can add style to your website, such as colors, fonts, and positioning of your
+   HTML content. To learn how to do something, just try searching Google for questions like
+   "how to change link color." */
+
+:root {
+  /* JSwing colors */
+  --WHITE: #fff;
+  --LIGHT_GRAY: #c0c0c0;
+  --GRAY: #808080;
+  --DARK_GRAY: #404040;
+  --BLACK: #000;
+  --RED: #f00;
+  --PINK: #ffafaf;
+  --ORANGE: #ffc800;
+  --YELLOW: #ff0;
+  --GREEN: #0f0;
+  --MAGENTA: #f0f;
+  --CYAN: #0ff;
+  --BLUE: #00f;
+
+  /* theme colors */
+  --text-color: #3E4042;
+  --accent-color: #C8DDF2;
+  --border-color: #708CC2;
+  --background-color: #f0f0f0;
+
+  /* text colors */
+  --EvenRowBackground: #e0e0e0;
+  --EvenRowForeground: #000;
+  --OddRowBackground: #fff;
+  --OddRowForeground: #000;
+  --TextSegmentHighlightBackground: #ff9;
+  --TextSegmentHighlightForeground: #000;
+  --TextSegmentDelaySlotHighlightBackground: #3f0;
+  --TextSegmentDelaySlotHighlightForeground: #000;
+  --DataSegmentHighlightBackground: #9cf;
+  --DataSegmentHighlightForeground: #000;
+  --RegisterHighlightBackground: #9c5;
+  --RegisterHighlightForeground: #000;
+}
+
+body {
+  background-color: white;
+  color: black;
+  font-family: Verdana;
+  margin: 0;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.toolbar {
+  flex-direction: row;
+}
+
+@media (max-width: 800px) {
+  
+}
+
+.split.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.split.vertical {
+  display: flex;
+  flex-direction: column;
+}
