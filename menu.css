@@ -40,7 +40,7 @@
   background-color: var(--background-color);
   width: max-content;
   border: 1px solid var(--border-color);
-  padding-top: 3px;
+  margin-top: 3px;
   font-size: 0.75em;
   text-align: left;
   z-index: 1000000;
