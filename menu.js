@@ -22,7 +22,7 @@ $(function() {
 
   $(".menu-item").on({
     "mouseenter": function() {
-      $(".active").removeClass("active");
+      $(".menu-item.active").removeClass("active");
       $(this).addClass("active");
       cur_menu_item = $(this).index();
     },
