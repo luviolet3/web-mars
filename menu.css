@@ -6,10 +6,12 @@
   z-index: 1000;
   /* display: inline-block; */
   display: flex;
+  flex-wrap: nowrap;
+  row-gap: 2px;
   position: sticky;
   top: 0;
   width: 100vw;
-  padding: 2px;
+  padding: 2px 2px 4px 2px;
   background-color: var(--background-color);
 
   --shortcut-text-color: #6382BF;
@@ -38,8 +40,7 @@
   background-color: var(--background-color);
   width: max-content;
   border: 1px solid var(--border-color);
-  margin-top: 3px;
-  box-sizing: border-box;
+  padding-top: 3px;
   font-size: 0.75em;
   text-align: left;
   z-index: 1000000;
