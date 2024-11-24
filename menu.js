@@ -7,6 +7,7 @@ $(function() {
       $(this).siblings().removeClass("active");
       $(this).addClass("active");
       cur_menu = $(this).index();
+      cur_menu_item = -1;
     },
     "click": function() {
       if ($(this).hasClass("active")) {
@@ -16,6 +17,7 @@ $(function() {
         $(this).siblings().removeClass("active");
         $(this).addClass("active");
         cur_menu = $(this).index();
+        cur_menu_item = -1;
       }
     }
   });
@@ -28,6 +30,7 @@ $(function() {
     },
     "mouseleave": function() {
       $(this).removeClass("active");
+      cur_menu_item = -1;
     }
   });
 
